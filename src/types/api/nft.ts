@@ -5,6 +5,7 @@ import type {
   TokenInfo,
   TokenInstance,
   TokenInventoryPagination,
+  TokenType,
 } from './token'
 
 export interface NftInstance extends TokenInstance {
@@ -40,5 +41,25 @@ export interface AddressNft extends TokenInstance {
 
 export interface AddressNftResponse {
   items: Array<AddressNft>
-  next_page_params: TokenInventoryPagination | null
+  next_page_params: {
+    items_count: number
+    token_id: string
+    token_type: TokenType
+    token_contract_address_hash: string
+  } | null
+}
+
+export type AddressNftCollection = {
+  token: TokenInfo
+  amount: string
+  token_instances: Array<Omit<AddressNft, 'token'>>
+}
+
+export interface AddressNftCollectionsResponse {
+  items: Array<AddressNftCollection>
+  next_page_params: {
+    items_count: number
+    token_contract_address_hash: string
+    token_type: TokenType
+  } | null
 }

@@ -36,6 +36,7 @@ import type {
   ChartTransactionResponse,
 } from '../types/api/charts'
 import type {
+  AddressNftCollectionsResponse,
   AddressNftResponse,
   NftInstance,
   NftInstanceHoldersResponse,
@@ -108,6 +109,25 @@ export class DefaultApi extends BaseAPI {
   ): Promise<AxiosResponse<AddressNftResponse>> {
     return DefaultApiFp(this.configuration)
       .getAddressNft(address_hash, type, options)
+      .then((request) => request(this.axios, this.basePath))
+  }
+
+  /**
+   *
+   * @summary get list of NFT owned by address, grouped by collection
+   * @param {string} address_hash Address hash
+   * @param {string} type NFT type
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof DefaultApi
+   */
+  public async getAddressNftCollections(
+    address_hash: string,
+    type?: NFTTokenType,
+    options?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<AddressNftCollectionsResponse>> {
+    return DefaultApiFp(this.configuration)
+      .getAddressNftCollections(address_hash, type, options)
       .then((request) => request(this.axios, this.basePath))
   }
 
