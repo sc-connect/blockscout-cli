@@ -136,6 +136,70 @@ export const DefaultApiAxiosParamCreator = function (
     },
     /**
      *
+     * @summary get list of NFT owned by address, grouped by collection
+     * @param {string} address_hash Address hash
+     * @param {string} type Nft type
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    getAddressNftCollections: async (
+      address_hash: string,
+      type?: string,
+      options: AxiosRequestConfig = {},
+    ): Promise<RequestArgs> => {
+      // verify required parameter 'address_hash' is not null or undefined
+      if (address_hash === null || address_hash === undefined) {
+        throw new RequiredError(
+          'address_hash',
+          'Required parameter addressHash was null or undefined when calling getAddressNftCollections.',
+        )
+      }
+      const localVarPath = `/addresses/{address_hash}/nft/collections`.replace(
+        `{${'address_hash'}}`,
+        encodeURIComponent(String(address_hash)),
+      )
+      // use dummy base URL string because the URL constructor only accepts absolute URLs.
+      const localVarUrlObj = new URL(localVarPath, 'https://example.com')
+      let baseOptions
+      if (configuration) {
+        baseOptions = configuration.baseOptions
+      }
+      const localVarRequestOptions: AxiosRequestConfig = {
+        method: 'GET',
+        ...baseOptions,
+        ...options,
+      }
+      const localVarHeaderParameter = {} as any
+      const localVarQueryParameter = {} as any
+
+      if (type !== undefined) {
+        localVarQueryParameter['type'] = type
+      }
+
+      const query = new URLSearchParams(localVarUrlObj.search)
+      for (const key in localVarQueryParameter) {
+        query.set(key, localVarQueryParameter[key])
+      }
+      for (const key in options.params) {
+        query.set(key, options.params[key])
+      }
+      localVarUrlObj.search = new URLSearchParams(query).toString()
+      let headersFromBaseOptions =
+        baseOptions && baseOptions.headers ? baseOptions.headers : {}
+      localVarRequestOptions.headers = {
+        ...localVarHeaderParameter,
+        ...headersFromBaseOptions,
+        ...options.headers,
+      }
+
+      return {
+        url:
+          localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+        options: localVarRequestOptions,
+      }
+    },
+    /**
+     *
      * @summary get blocks validated by address
      * @param {string} address_hash Address hash
      * @param {*} [options] Override http request option.
