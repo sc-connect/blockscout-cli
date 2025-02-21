@@ -20,6 +20,7 @@ export interface TokenInfo<T extends TokenType = TokenType> {
   bridge_type?: string | null
   origin_chain_id?: string | null
   foreign_address?: string | null
+  filecoin_robust_address?: string | null
 }
 
 export interface TokenCounters {
@@ -39,12 +40,9 @@ export type TokenHolderBase = {
   value: string
 }
 
-export type TokenHolderERC20ERC721 = TokenHolderBase & {
-  token: TokenInfo<'ERC-20'> | TokenInfo<'ERC-721'>
-}
+export type TokenHolderERC20ERC721 = TokenHolderBase
 
 export type TokenHolderERC1155 = TokenHolderBase & {
-  token: TokenInfo<'ERC-1155'>
   token_id: string
 }
 
@@ -52,6 +50,8 @@ export type TokenHoldersPagination = {
   items_count: number
   value: string
 }
+
+export type ThumbnailSize = '60x60' | '250x250' | '500x500' | 'original'
 
 export interface TokenInstance {
   is_unique: boolean
@@ -62,6 +62,16 @@ export interface TokenInstance {
   external_app_url: string | null
   metadata: Record<string, unknown> | null
   owner: AddressParam | null
+  thumbnails: Partial<Record<ThumbnailSize, string>> | null
+}
+
+export interface TokenInstanceMetadataSocketMessage {
+  token_id: number
+  fetched_metadata: TokenInstance['metadata']
+}
+
+export interface TokenInstanceTransfersCount {
+  transfers_count: number
 }
 
 export interface TokenInventoryResponse {

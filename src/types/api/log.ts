@@ -3,12 +3,11 @@ import type { DecodedInput } from './decodedInput'
 
 export interface Log {
   address: AddressParam
-  block_hash: string | null
   topics: Array<string | null>
   data: string
   index: number
   decoded: DecodedInput | null
-  tx_hash: string | null
+  transaction_hash: string | null
 }
 
 export interface LogsResponseTx {
@@ -17,7 +16,6 @@ export interface LogsResponseTx {
     index: number
     items_count: number
     transaction_hash: string
-    block_number: number
   } | null
 }
 

@@ -1,17 +1,14 @@
 import type { TokenInfo, TokenType } from './token'
 import type { TokenTransfer } from './tokenTransfer'
-export type TokensPagination = {
-  contract_address_hash: string
-  holder_count: number
-  is_name_null: boolean
-  items_count: number
-  market_cap: string | null
-  name: string
-}
 
 export type TokensResponse = {
   items: Array<TokenInfo>
-  next_page_params: TokensPagination | null
+  next_page_params: {
+    holder_count: number
+    items_count: number
+    name: string
+    market_cap: string | null
+  } | null
 }
 
 export type TokensFilters = { q: string; type: Array<TokenType> | undefined }

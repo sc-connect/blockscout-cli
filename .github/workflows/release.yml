@@ -1,0 +1,56 @@
+name: Release Package
+
+on:
+  push:
+    branches:
+      - 'v0.x'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions: write-all
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.16.0
+          cache: yarn
+
+      - name: Restore cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            cache
+          key: ${{ runner.os }}-turbo-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-${{ hashFiles('**/yarn.lock') }}-
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Create Release PR or Publish Packages
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: yarn release-package
+          version: yarn version-package
+          commit: 'chore: update package versions'
+          title: 'Publish NPM Package'
+          createGithubReleases: 'true'
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

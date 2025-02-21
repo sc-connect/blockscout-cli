@@ -7,27 +7,41 @@ export type Erc20TotalPayload = {
 }
 
 export type Erc721TotalPayload = {
-  token_id: string
+  token_id: string | null
 }
 
 export type Erc1155TotalPayload = {
   decimals: string | null
   value: string
-  token_id: string
+  token_id: string | null
 }
+
+export type Erc404TotalPayload =
+  | {
+      decimals: string
+      value: string
+      token_id: null
+    }
+  | {
+      token_id: string
+    }
 
 export type TokenTransfer = (
   | {
-      token: TokenInfo<'ERC-20'>
-      total: Erc20TotalPayload
+      token: TokenInfo<'ERC-20'> | null
+      total: Erc20TotalPayload | null
     }
   | {
-      token: TokenInfo<'ERC-721'>
-      total: Erc721TotalPayload
+      token: TokenInfo<'ERC-721'> | null
+      total: Erc721TotalPayload | null
     }
   | {
-      token: TokenInfo<'ERC-1155'>
-      total: Erc1155TotalPayload
+      token: TokenInfo<'ERC-1155'> | null
+      total: Erc1155TotalPayload | null
+    }
+  | {
+      token: TokenInfo<'ERC-404'> | null
+      total: Erc404TotalPayload | null
     }
 ) &
   TokenTransferBase
@@ -39,10 +53,11 @@ export type TokenTotal =
 
 interface TokenTransferBase {
   type: 'token_transfer' | 'token_burning' | 'token_spawning' | 'token_minting'
-  tx_hash: string
+  transaction_hash: string
   from: AddressParam
   to: AddressParam
   timestamp: string
+  block_number: string
   block_hash: string
   log_index: string
   method?: string
@@ -52,7 +67,6 @@ export type TokenTransferPagination = {
   block_number: number
   index: number
   items_count: number
-  token_id: string | null
 }
 
 export interface TokenTransferResponse {

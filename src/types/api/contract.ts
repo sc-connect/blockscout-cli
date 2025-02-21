@@ -23,6 +23,21 @@ export type SmartContractLicenseType =
   | 'gnu_agpl_v3'
   | 'bsl_1_1'
 
+export type SmartContractProxyType =
+  | 'eip1167'
+  | 'eip1967'
+  | 'eip1822'
+  | 'eip930'
+  | 'eip2535'
+  | 'eip7702'
+  | 'master_copy'
+  | 'basic_implementation'
+  | 'basic_get_implementation'
+  | 'comptroller'
+  | 'clone_with_immutable_arguments'
+  | 'unknown'
+  | null
+
 export interface SmartContract {
   deployed_bytecode: string | null
   creation_bytecode: string | null
@@ -31,7 +46,7 @@ export interface SmartContract {
   compiler_version: string | null
   evm_version: string | null
   optimization_enabled: boolean | null
-  optimization_runs: number | null
+  optimization_runs: number | string | null
   name: string | null
   verified_at: string | null
   is_blueprint: boolean | null
@@ -57,14 +72,22 @@ export interface SmartContract {
     remappings?: Array<string>
   }
   verified_twin_address_hash: string | null
-  minimal_proxy_address_hash: string | null
+  verified_twin_filecoin_robust_address?: string | null
+  proxy_type: SmartContractProxyType | null
   language: string | null
   license_type: SmartContractLicenseType | null
   certified?: boolean
+  zk_compiler_version?: string
+  github_repository_metadata?: {
+    commit?: string
+    path_prefix?: string
+    repository_url?: string
+  }
+  package_name?: string
 }
 
 export type SmartContractDecodedConstructorArg = [
-  string,
+  unknown,
   {
     internalType: SmartContractMethodArgType
     name: string
@@ -156,7 +179,7 @@ export type SmartContractQueryMethodRead =
 
 // VERIFICATION
 
-export type SmartContractVerificationMethod =
+export type SmartContractVerificationMethodApi =
   | 'flattened-code'
   | 'standard-input'
   | 'sourcify'
@@ -164,19 +187,19 @@ export type SmartContractVerificationMethod =
   | 'vyper-code'
   | 'vyper-multi-part'
   | 'vyper-standard-input'
+  | 'stylus-github-repository'
 
 export interface SmartContractVerificationConfigRaw {
   solidity_compiler_versions: Array<string>
   solidity_evm_versions: Array<string>
   verification_options: Array<string>
   vyper_compiler_versions: Array<string>
+  stylus_compiler_versions?: Array<string>
   vyper_evm_versions: Array<string>
   is_rust_verifier_microservice_enabled: boolean
-}
-
-export interface SmartContractVerificationConfig
-  extends SmartContractVerificationConfigRaw {
-  verification_options: Array<SmartContractVerificationMethod>
+  license_types: Record<SmartContractLicenseType, number>
+  zk_compiler_versions?: Array<string>
+  zk_optimization_modes?: Array<string>
 }
 
 export type SmartContractVerificationResponse =
@@ -197,24 +220,41 @@ export interface SmartContractVerificationError {
   name?: Array<string>
 }
 
-export type SolidityscanReport = {
-  scan_report: {
-    scan_status: string
-    scan_summary: {
-      issue_severity_distribution: {
-        critical: number
-        gas: number
-        high: number
-        informational: number
-        low: number
-        medium: number
-      }
-      lines_analyzed_count: number
-      scan_time_taken: number
-      score: string
-      score_v2: string
-      threat_score: string
-    }
-    scanner_reference_url: string
-  }
+type SmartContractSecurityAudit = {
+  audit_company_name: string
+  audit_publish_date: string
+  audit_report_url: string
+}
+
+export type SmartContractSecurityAudits = {
+  items: Array<SmartContractSecurityAudit>
+}
+
+export type SmartContractSecurityAuditSubmission = {
+  address_hash: string
+  submitter_name: string
+  submitter_email: string
+  is_project_owner: boolean
+  project_name: string
+  project_url: string
+  audit_company_name: string
+  audit_report_url: string
+  audit_publish_date: string
+  comment?: string
+}
+
+// MUD SYSTEM
+
+export interface SmartContractMudSystemsResponse {
+  items: Array<SmartContractMudSystemItem>
+}
+
+export interface SmartContractMudSystemItem {
+  address: string
+  name: string
+}
+
+export interface SmartContractMudSystemInfo {
+  name: string
+  abi: Abi
 }
