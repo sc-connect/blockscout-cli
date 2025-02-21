@@ -15,26 +15,20 @@ import type {
   AddressTokenTransferResponse,
   AddressTransactionsResponse,
   AddressWithdrawalsResponse,
-} from '../types/api/address'
-import type { LogsResponseAddress, LogsResponseTx } from '../types/api/log'
-import type { AddressesResponse } from '../types/api/addresses'
+} from '../types'
+import type { LogsResponseAddress, LogsResponseTx } from '../types'
+import type { AddressesResponse } from '../types'
 import type {
   Block,
   BlocksResponse,
   BlockTransactionsResponse,
   BlockWithdrawalsItem,
-} from '../types/api/block'
-import type { IndexingStatus } from '../types/api/indexingStatus'
-import type { InternalTransactionsResponse } from '../types/api/internalTransaction'
-import type { JsonRpcUrlResponse } from '../types/api/jsonRpc'
-import type {
-  Transaction,
-  TransactionsResponse,
-} from '../types/api/transaction'
-import type {
-  ChartMarketResponse,
-  ChartTransactionResponse,
-} from '../types/api/charts'
+} from '../types'
+import type { IndexingStatus } from '../types'
+import type { InternalTransactionsResponse } from '../types'
+import type { JsonRpcUrlResponse } from '../types'
+import type { Transaction, TransactionsResponse } from '../types'
+import type { ChartMarketResponse, ChartTransactionResponse } from '../types'
 import type {
   AddressNftCollectionsResponse,
   AddressNftResponse,
@@ -42,32 +36,32 @@ import type {
   NftInstanceHoldersResponse,
   NftInstancesResponse,
   NftTransfersCountResponse,
-} from '../types/api/nft'
-import type { TokenTransferResponse } from '../types/api/tokenTransfer'
-import type { RawTracesResponse } from '../types/api/rawTrace'
+} from '../types'
+import type { TokenTransferResponse } from '../types'
+import type { RawTracesResponse } from '../types'
 import type {
   SmartContract,
   SmartContractQueryMethodRead,
   SmartContractReadMethod,
   SmartContractWriteMethod,
-} from '../types/api/contract'
-import type { SmartContractReadQueryMethodBody } from '../types/api/readMethodQueryBody'
+} from '../types'
+import type { SmartContractReadQueryMethodBody } from '../types'
 import type {
   VerifiedContractsCounters,
   VerifiedContractsResponse,
-} from '../types/api/contracts'
-import type { TxStateChangesResponse } from '../types/api/txStateChanges'
-import type { HomeStats } from '../types/api/stats'
+} from '../types'
+import type { TxStateChangesResponse } from '../types'
+import type { HomeStats } from '../types'
 import type {
   NFTTokenType,
   TokenCounters,
   TokenHoldersResponse,
   TokenInfo,
-} from '../types/api/token'
-import type { TxsTokenTransferResponse } from '../types/api/txTokenTransfer'
-import type { TokensResponse } from '../types/api/tokens'
-import type { WithdrawalsResponse } from '../types/api/withdrawals'
-import type { SearchRedirectResult, SearchResult } from '../types/api/search'
+} from '../types'
+import type { TxsTokenTransferResponse } from '../types'
+import type { TokensResponse } from '../types'
+import type { WithdrawalsResponse } from '../types'
+import type { SearchRedirectResult, SearchResult } from '../types'
 
 /**
  * DefaultApi - object-oriented interface

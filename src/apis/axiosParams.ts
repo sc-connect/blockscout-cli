@@ -2,7 +2,7 @@ import type { AxiosRequestConfig } from 'axios'
 
 import { Configuration } from '../configuration'
 import { type RequestArgs, RequiredError } from '../base'
-import type { SmartContractReadQueryMethodBody } from '../types/api/readMethodQueryBody'
+import type { SmartContractReadQueryMethodBody } from '../types'
 
 /**
  * DefaultApi - axios parameter creator

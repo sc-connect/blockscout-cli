@@ -1,28 +1,31 @@
 import type { Transaction } from './transaction'
-import type { AddressImplementation, UserTags } from './addressParams'
-import type { Block } from './block'
+import type {
+  UserTags,
+  AddressImplementation,
+  AddressParam,
+  AddressFilecoinParams,
+} from './addressParams'
+import type { Block, EpochRewardsType } from './block'
+import type { SmartContractProxyType } from './contract'
 import type { InternalTransaction } from './internalTransaction'
+import type { MudWorldSchema, MudWorldTable } from './mudWorlds'
 import type { NFTTokenType, TokenInfo, TokenInstance, TokenType } from './token'
 import type { TokenTransfer, TokenTransferPagination } from './tokenTransfer'
-import type { MudWorldSchema, MudWorldTable } from './mudWorlds'
 
 export interface Address extends UserTags {
   block_number_balance_updated_at: number | null
   coin_balance: string | null
   creator_address_hash: string | null
-  creation_tx_hash: string | null
+  creator_filecoin_robust_address?: string | null
+  creation_transaction_hash: string | null
   exchange_rate: string | null
   ens_domain_name: string | null
+  filecoin?: AddressFilecoinParams
+  zilliqa?: AddressZilliqaParams
   // TODO: if we are happy with tabs-counters method, should we delete has_something fields?
   has_beacon_chain_withdrawals?: boolean
-  has_custom_methods_read: boolean
-  has_custom_methods_write: boolean
   has_decompiled_code: boolean
   has_logs: boolean
-  has_methods_read: boolean
-  has_methods_read_proxy: boolean
-  has_methods_write: boolean
-  has_methods_write_proxy: boolean
   has_token_transfers: boolean
   has_tokens: boolean
   has_validated_blocks: boolean
@@ -33,6 +36,11 @@ export interface Address extends UserTags {
   name: string | null
   token: TokenInfo | null
   watchlist_address_id: number | null
+  proxy_type?: SmartContractProxyType | null
+}
+
+export interface AddressZilliqaParams {
+  is_scilla_contract: boolean
 }
 
 export interface AddressCounters {
@@ -149,12 +157,6 @@ export interface AddressCoinBalanceHistoryResponse {
   } | null
 }
 
-// remove after api release
-export type AddressCoinBalanceHistoryChartOld = Array<{
-  date: string
-  value: string
-}>
-
 export type AddressCoinBalanceHistoryChart = {
   items: Array<{
     date: string
@@ -197,13 +199,14 @@ export type AddressWithdrawalsItem = {
 }
 
 export type AddressTabsCounters = {
-  internal_txs_count: number | null
+  internal_transactions_count: number | null
   logs_count: number | null
   token_balances_count: number | null
   token_transfers_count: number | null
   transactions_count: number | null
   validations_count: number | null
   withdrawals_count: number | null
+  celo_election_rewards_count?: number | null
 }
 
 // MUD framework
@@ -257,4 +260,33 @@ export type AddressMudRecord = {
   record: AddressMudRecordsItem
   schema: MudWorldSchema
   table: MudWorldTable
+}
+
+export type AddressEpochRewardsResponse = {
+  items: Array<AddressEpochRewardsItem>
+  next_page_params: {
+    amount: string
+    associated_account_address_hash: string
+    block_number: number
+    items_count: number
+    type: EpochRewardsType
+  } | null
+}
+
+export type AddressEpochRewardsItem = {
+  type: EpochRewardsType
+  token: TokenInfo
+  amount: string
+  block_number: number
+  block_hash: string
+  block_timestamp: string
+  account: AddressParam
+  epoch_number: number
+  associated_account: AddressParam
+}
+
+export type AddressXStarResponse = {
+  data: {
+    level: string | null
+  }
 }

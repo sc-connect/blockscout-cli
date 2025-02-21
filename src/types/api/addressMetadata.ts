@@ -1,3 +1,5 @@
+export type AlertStatus = 'info' | 'warning' | 'success' | 'error' | 'neutral'
+
 export interface AddressMetadataInfo {
   addresses: Record<
     string,
@@ -42,6 +44,10 @@ export interface AddressMetadataTagApi
     appLogoURL?: string
     appActionButtonText?: string
     warpcastHandle?: string
+    data?: string
+    alertBgColor?: string
+    alertTextColor?: string
+    alertStatus?: AlertStatus
   } | null
 }
 
