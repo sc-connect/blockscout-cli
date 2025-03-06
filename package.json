@@ -35,8 +35,8 @@
   "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
   "scripts": {
-    "build:esm": "swc src --copy-files --config-file .swcrc.esm.json -d dist/esm  ",
-    "build:cjs": "swc src --copy-files --config-file .swcrc.cjs.json -d dist/cjs",
+    "build:esm": "swc src --copy-files --config-file --strip-leading-paths .swcrc.esm.json -d dist/esm",
+    "build:cjs": "swc src --copy-files --config-file --strip-leading-paths .swcrc.cjs.json -d dist/cjs",
     "build:types": "tsc --emitDeclarationOnly --noCheck --outDir dist/esm && tsc --emitDeclarationOnly --noCheck --outDir dist/cjs",
     "build": "yarn build:esm & yarn build:cjs & yarn build:types",
     "prebuild": "rm -rf ./dist",
