@@ -1,5 +1,11 @@
 # blockscout-cli
 
+## 0.1.9
+
+### Patch Changes
+
+- [`b3f6ebd`](https://github.com/sc-connect/blockscout-cli/commit/b3f6ebd251ebb7555a056b98b36ffff6eeae2735) Thanks [@danialdinh957](https://github.com/danialdinh957)! - fix: correctly build script 2
+
 ## 0.1.8
 
 ### Patch Changes
