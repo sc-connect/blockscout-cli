@@ -1,6 +1,6 @@
 {
   "name": "blockscout-cli",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Restful Blockscout Apis SDK with axios for NodeJS",
   "author": "sc-connect",
   "keywords": [
