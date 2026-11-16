@@ -14,10 +14,10 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@blockscout/bens-types@1.5.5":
-  version "1.5.5"
-  resolved "https://registry.yarnpkg.com/@blockscout/bens-types/-/bens-types-1.5.5.tgz#da0e7f80316da5ca7c4e52847212c1778466d854"
-  integrity sha512-XjqW9i3NsEBNtKk/nLPfikA7eJlk7cqfEwdR8+JFHyUkvtz+AJXYkkKXxYt9gd8514Zl7wD+DW4CU2dzDebn5w==
+"@blockscout/bens-types@1.7.7":
+  version "1.7.7"
+  resolved "https://registry.yarnpkg.com/@blockscout/bens-types/-/bens-types-1.7.7.tgz#1afef429684bce72530da279b9f97b74438b8640"
+  integrity sha512-W4GalHVkatfOm4sxzhKPO8oyKXbQkstQQ5SbgYhi2+JeaeLJxX8tJn7QBznXPdU9nbb8QeoErHT3GaIFsvHY5Q==
 
 "@changesets/apply-release-plan@^7.0.10":
   version "7.0.10"
